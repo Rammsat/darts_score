@@ -3,6 +3,7 @@ max_point = input()
 rounds = 1
 storage = dict()
 player_list = []
+stop_point = 0
 
 print('Введите количество игроков:')
 players_number = input()
@@ -25,13 +26,21 @@ player_storage(storage)
 
 
 def scoring():
-    for key, value in storage.items():
+    for key in storage:
         print(f'Сколько очков набрал {key}?')
         round_points = input()
-        storage[value] = storage[value] + int(round_points)
+        last_points = storage[key]
+        storage.update({key: int(round_points) + int(last_points)})
     return storage
 
 
-print(scoring())
+while int(stop_point) < int(max_point):
+    scoring()
+    print(storage)
+    for key in storage:
+        if storage[key] > int(max_point):
+            stop_point = storage[key]
+            print(f'Игра закончена! Поздравим победителя\n{storage}')
+
 
 
