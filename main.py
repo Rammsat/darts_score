@@ -1,42 +1,31 @@
-while True:
-    print('До скольки очков будет длиться игра?')
-    max_point = input()
-    storage = dict()
-    player_list = []
-    stop_point = 0
+import score
 
+
+storage = dict()
+player_list = []
+stop_point = 0
+
+
+while True:
+    max_point = score.type_max_point()
+    players_number = score.type_players_number()
+
+
+    """
     print('Введите количество игроков:')
     players_number = input()
-
+"""
     for i in range(1, int(players_number) + 1):
         print(f'Введите имя игрока {i}:')
         player_name = input()
         player_list.append(player_name)
 
+    point_storage = score.create_player_and_points_storage(storage, players_number, player_list)
+    points_adding = score.scoring
 
-    def player_storage(some_dict):
-        for j in range(int(players_number)):
-            dict_of_player = {player_list[j]: 0}
-            some_dict.update(dict_of_player)
-        return some_dict
-
-    player_storage(storage)
-
-
-    def scoring():
-        rounds = 1
-        for key in storage:
-            print(f'Сколько очков набрал {key}?')
-            round_points = input()
-            last_points = storage[key]
-            storage.update({key: int(round_points) + int(last_points)})
-        print(f'Счет на раунд №{rounds}\n{storage}')
-        rounds += 1
-
-
-    while int(stop_point) < int(max_point):
-        scoring()
-        for key in storage:
-            if storage[key] >= int(max_point):
-                stop_point = storage[key]
-                print(f'Игра закончена! Поздравим победителя - {key}\n{storage}')
+    while int(stop_point) < int(max_point()):
+        points_adding(storage)
+        stop_point = sorted(storage.values())[-1]
+        if int(stop_point) >= int(max_point):
+            winner = max(storage, key=storage.get)
+            print(f'Игра закончена! Поздравим победителя - {winner}\n{storage}')
