@@ -1,31 +1,21 @@
 import score
 
 
-storage = dict()
-player_list = []
-stop_point = 0
-
+rounds = 0
 
 while True:
     max_point = score.type_max_point()
     players_number = score.type_players_number()
+    player_list = score.create_player_list(players_number)
 
+    point_storage = score.create_player_and_points_storage(players_number, player_list)
+    adding_points = score.scoring
+    show_end_of_round = score.show_points_and_round
 
-    """
-    print('Введите количество игроков:')
-    players_number = input()
-"""
-    for i in range(1, int(players_number) + 1):
-        print(f'Введите имя игрока {i}:')
-        player_name = input()
-        player_list.append(player_name)
-
-    point_storage = score.create_player_and_points_storage(storage, players_number, player_list)
-    points_adding = score.scoring
-
-    while int(stop_point) < int(max_point()):
-        points_adding(storage)
-        stop_point = sorted(storage.values())[-1]
-        if int(stop_point) >= int(max_point):
-            winner = max(storage, key=storage.get)
-            print(f'Игра закончена! Поздравим победителя - {winner}\n{storage}')
+    while True:
+        adding_points(point_storage)
+        rounds += 1
+        show_end_of_round(rounds, point_storage)
+        stop_game = score.show_winner(max_point, point_storage)
+        if stop_game >= max_point:
+            break
