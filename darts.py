@@ -1,12 +1,13 @@
 import score
+import players
 
 
 rounds = 0
 
 while True:
-    max_point = score.type_max_point()
-    players_number = score.type_players_number()
-    player_list = score.create_player_list(players_number)
+    max_point = players.type_max_point()
+    players_number = players.type_players_number()
+    player_list = players.create_player_list(players_number)
 
     point_storage = score.create_player_and_points_storage(players_number, player_list)
     adding_points = score.scoring
@@ -16,6 +17,6 @@ while True:
         adding_points(point_storage)
         rounds += 1
         show_end_of_round(rounds, point_storage)
-        stop_game = score.show_winner(max_point, point_storage)
-        if stop_game >= max_point:
+        stop_game_points = score.show_winner(max_point, point_storage)
+        if stop_game_points >= max_point:
             break
