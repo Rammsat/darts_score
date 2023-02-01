@@ -1,6 +1,6 @@
 def create_player_and_points_storage(players_number, player_list):
     storage = dict()
-    for j in range(int(players_number)):
+    for j in range(players_number):
         dict_of_player = {player_list[j]: 0}
         storage.update(dict_of_player)
     return storage
@@ -9,8 +9,11 @@ def create_player_and_points_storage(players_number, player_list):
 def scoring(storage: dict):
     for key in storage:
         print(f'Сколько очков набрал {key}?')
-        round_points = int(input())
-        storage.update({key: round_points + int(storage[key])})
+        round_points = input()
+        while not round_points.isdigit():
+            print(f'Количество очков должно быть числом!\nСколько очков набрал {key}?')
+            round_points = input()
+        storage.update({key: int(round_points) + int(storage[key])})
 
 
 def show_points_and_round(rounds, storage: dict):
