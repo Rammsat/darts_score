@@ -14,6 +14,7 @@ def scoring(storage: dict):
             print(f'Количество очков должно быть числом!\nСколько очков набрал {key}?')
             round_points = input()
         storage.update({key: int(round_points) + int(storage[key])})
+    return storage
 
 
 def show_points_and_round(rounds, storage: dict):
