@@ -23,4 +23,4 @@ while True:
             break
 
     connection = statistic.create_connection_to_db()
-    update_number_of_games = statistic.update_statistics(connection, adding_points)
+    update_statistic = statistic.update_statistics(connection, adding_points)
