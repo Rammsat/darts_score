@@ -11,9 +11,11 @@ def main():
         game_round = 0
 
         game_preparation.type_players_number()
-        game_preparation.type_players_names()
+        players_list = game_preparation.type_players_names()
         max_point = game_preparation.type_max_point()
         point_storage = game_preparation.create_player_and_points_storage()
+        data_base.create_connection()
+        data_base.insert_players(players_list)
 
         while True:
             game_round += 1
@@ -26,8 +28,8 @@ def main():
             if stop_game_points >= max_point:
                 break
 
-        data_base.create_connection()
         data_base.update_statistics(points)
+        data_base.show_statistic()
 
 if __name__ == "__main__":
     main()

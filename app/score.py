@@ -17,10 +17,10 @@ class Score:
 
     def show_winner(self, max_point):
         stop_point = int(sorted(self.storage.values())[-1])
-        winners = list()
+        winners = []
         if stop_point >= max_point:
             for key in self.storage:
                 if self.storage[key] == stop_point:
                     winners.append(key)
-        print(f'Поздравим победителя(ей) {", ".join(winners)} с набором нужного количества очков - {max_point}')
+            print(f'Поздравим победителя(ей) {", ".join(winners)} с набором нужного количества очков - {max_point}')
         return stop_point
