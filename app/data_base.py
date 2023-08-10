@@ -2,6 +2,9 @@ import os.path
 import sqlite3
 import pandas
 from sqlite3 import Error
+from app.gui import Gui
+
+gui = Gui()
 
 
 class DataBase:
@@ -121,7 +124,12 @@ class DataBase:
                       f"FROM players JOIN statistic " \
                       f"ON players.id = statistic.player_id"
         list_of_statistic = self.cursor.execute(all_statistic).fetchall()
-        columns = ['Имя', 'Кол-во игр', 'Макс. очков за игру',
-                   'Сред. кол-во очков за игру','1-ых мест', '2-ых мест', '3-их мест']
+        columns = ['Имя', 'Игр', 'Макс. о/и',
+                   'Сред. о/и','1ых мест', '2ых мест', '3их мест']
 
         print(pandas.DataFrame(data=list_of_statistic, columns=columns))
+
+        gui.show_message_window(window_title='Конец игры',
+                                window_text=pandas.DataFrame(data=list_of_statistic, columns=columns),
+                                size=(25, 25))
+
